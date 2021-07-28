@@ -3,13 +3,16 @@
   "version": "1.0.0",
   "main": "src/server.js",
   "scripts": {
-    "dev": "nodemon ."
+    "dev": "nodemon .",
+    "initdb": "node ./src/db/init.js" 
   },
   "repository": "https://gitlab.com/thiago.cgoncalves/rocket.q.git",
   "author": "Thiago Carvalho de Onofre Gonçalves <thiago.cgoncalves@al.infnet.edu.br>",
   "license": "MIT",
   "dependencies": {
     "ejs": "^3.1.6",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "sqlite": "^4.0.23",
+    "sqlite3": "^5.0.2"
   }
 }
