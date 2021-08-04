@@ -17,4 +17,4 @@ server.use(routes)
 
 server.listen(3000, () => console.log('----- Server running on port 3000 -----'))
 
-// PAREI NA AULA 4 AO MINUTO 01:16:31.
+// P A 05 31:28

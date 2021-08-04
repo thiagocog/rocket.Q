@@ -7,28 +7,44 @@ module.exports = {
 
     const db = await Database()
 
-    // ----- creating room id
+    let roomIdAlreadyExists = true
     let roomId
-    for(let i = 0; i < 6; i++) {
-      i === 0 ? roomId = Math.floor(Math.random() * 10).toString() :
-      roomId += Math.floor(Math.random() * 10).toString()
-    }
-    roomId = parseInt(roomId)
-    // -----
+    
+    
+    while (roomIdAlreadyExists) {
+      
+      // Creating room id
+      for(let i = 0; i < 6; i++) {
+        i === 0 ? roomId = Math.floor(Math.random() * 10).toString() :
+        roomId += Math.floor(Math.random() * 10).toString()
+      }
+      roomId = parseInt(roomId)
+  
+      // Verify if room id already exists
+      const roomsIdsDB = await db.all(`SELECT id FROM rooms`)
+      roomIdAlreadyExists = roomsIdsDB.some(idsDB => idsDB === roomId)
 
-    await db.run(`INSERT INTO rooms (
-      id,
-      pass
-    ) VALUES (
-      ${roomId},
-      ${password}
-    )`)
+      // Insert room on database
+      if (!roomIdAlreadyExists) {
+        await db.run(`INSERT INTO rooms (
+          id,
+          pass
+        ) VALUES (
+          ${roomId},
+          ${password}
+        )`)
+      }
+    }
 
     await db.close()
 
     res.redirect(`/room/${roomId}`)
+  },
+
+  open(req, res) {
+    const roomId = req.params
+    console.log(roomId);
+    res.render('room', roomId)
   }
 
 }
-
-// P A 05 I
